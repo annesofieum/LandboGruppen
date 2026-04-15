@@ -1125,68 +1125,73 @@ Jeg er nysgerrig på AI-værktøjer og bruger det flittigt i min egen hverdag. M
       </div>
     </div>
   </div>
-  <script>
-   function setActiveSection(section) {
-  document.querySelectorAll('.menu a').forEach(l => l.classList.remove('active'));
-  document.querySelectorAll('.section-content').forEach(sec => {
-    sec.classList.remove('active');
-    sec.style.opacity = 0;
-  });
-
-  if (section === "front") {
-    document.body.classList.remove("with-overlay");
-    const front = document.getElementById('front-section');
-    front.classList.add('active');
-    setTimeout(() => { front.style.opacity = 1; }, 30);
-  } else {
-    document.body.classList.add("with-overlay");
-    let sec = document.getElementById(section + '-section');
-    if (sec) {
-      sec.classList.add('active');
-      setTimeout(() => { sec.style.opacity = 1; }, 30);
-    }
-
-    // ✅ redraw radar when Kompetencer is shown
-    if (section === "kompetencer") {
-      setTimeout(() => {
-        if (document.getElementById('skillChart')) drawRadarChart();
-      }, 50);
-    }
-  }
-}
-    document.querySelectorAll('.menu a').forEach(link => {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        setActiveSection(this.dataset.section);
-        this.classList.add('active');
-      });
+ <script>
+  function setActiveSection(section) {
+    document.querySelectorAll('.menu a').forEach(l => l.classList.remove('active'));
+    document.querySelectorAll('.section-content').forEach(sec => {
+      sec.classList.remove('active');
+      sec.style.opacity = 0;
     });
-    setActiveSection("front");
-    function closeAllExpDetails() {
-      document.querySelectorAll('.experience-details').forEach(function(details) {
-        details.classList.remove('active');
-        details.style.display = 'none';
-      });
-      document.querySelectorAll('.experience-item').forEach(function(item) {
-        item.classList.remove('active');
-      });
-    }
-    function toggleExperience(id) {
-      const details = document.getElementById(id + '-details');
-      const item = document.getElementById(id + '-item');
-      if (!details) return;
-      if (details.classList.contains('active')) {
-        details.classList.remove('active');
-        details.style.display = 'none';
-        if (item) item.classList.remove('active');
-      } else {
-        closeAllExpDetails();
-        details.classList.add('active');
-        details.style.display = 'block';
-        if (item) item.classList.add('active');
+
+    if (section === "front") {
+      document.body.classList.remove("with-overlay");
+      const front = document.getElementById('front-section');
+      front.classList.add('active');
+      setTimeout(() => { front.style.opacity = 1; }, 30);
+    } else {
+      document.body.classList.add("with-overlay");
+      let sec = document.getElementById(section + '-section');
+      if (sec) {
+        sec.classList.add('active');
+        setTimeout(() => { sec.style.opacity = 1; }, 30);
+      }
+
+      if (section === "kompetencer") {
+        setTimeout(() => {
+          if (document.getElementById('skillChart')) drawRadarChart();
+        }, 50);
       }
     }
-    window.toggleExperience = toggleExperience;
+  }
+
+  document.querySelectorAll('.menu a').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      setActiveSection(this.dataset.section);
+      this.classList.add('active');
+    });
+  });
+
+  setActiveSection("front");
+
+  function closeAllExpDetails() {
+    document.querySelectorAll('.experience-details').forEach(function(details) {
+      details.classList.remove('active');
+      details.style.display = 'none';
+    });
+    document.querySelectorAll('.experience-item').forEach(function(item) {
+      item.classList.remove('active');
+    });
+  }
+
+  function toggleExperience(id) {
+    const details = document.getElementById(id + '-details');
+    const item = document.getElementById(id + '-item');
+    if (!details) return;
+
+    if (details.classList.contains('active')) {
+      details.classList.remove('active');
+      details.style.display = 'none';
+      if (item) item.classList.remove('active');
+    } else {
+      closeAllExpDetails();
+      details.classList.add('active');
+      details.style.display = 'block';
+      if (item) item.classList.add('active');
+    }
+  }
+  window.toggleExperience = toggleExperience;
+
  var skills = [
   {
     name: "Storytelling & Kreativ Tekstforfatning",
